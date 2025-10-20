@@ -1,0 +1,168 @@
+:root{
+  --accent:#f6b95d;
+  --dark:#2e2524;
+  --muted:#6b6b6b;
+  --bg:#faf7f3;
+}
+
+/* Reset & container */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+  background:var(--bg);
+  color:var(--dark);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+.container{width:90%;max-width:1100px;margin:0 auto}
+
+/* Header */
+.site-header{
+  position:fixed;top:0;left:0;right:0;background:linear-gradient(180deg, rgba(0,0,0,0.35), transparent);
+  z-index:40;backdrop-filter: blur(4px);
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+.logo{font-family:'Playfair Display', serif;font-size:26px;color:var(--accent);font-weight:700}
+.main-nav a{color:#fff;margin:0 10px;text-decoration:none;opacity:.95}
+.actions{display:flex;align-items:center;gap:8px}
+.btn{padding:8px 14px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.15)}
+.btn-primary{background:var(--dark);color:#fff}
+.btn-accent{background:var(--accent);color:var(--dark);border-radius:999px;padding:8px 14px}
+
+/* Burger for mobile */
+.burger{display:none;background:transparent;border:0;color:#fff;font-size:22px}
+
+/* HERO */
+.hero{position:relative;height:72vh;min-height:420px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.6);transform-origin:center}
+.hero-overlay{position:relative;z-index:2;padding-top:72px;padding-bottom:32px}
+.hero-inner{text-align:left;color:#fff;max-width:780px}
+.hero-title{font-size:48px;margin:0 0 10px;font-weight:800}
+.hero-sub{font-size:18px;margin:0 0 16px;color:rgba(255,255,255,0.9)}
+.hero-actions{display:flex;gap:10px;align-items:center;margin-top:14px}
+.search{padding:10px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.2);min-width:260px;background:rgba(255,255,255,0.06);color:#fff}
+
+/* Sections */
+.section{padding:48px 0}
+.section h2{margin-top:0}
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+.card{background:#fff;border-radius:12px;padding:14px;box-shadow:0 8px 20px rgba(30,20,20,0.08);text-align:center}
+.card-img{height:140px;background-size:cover;background-position:center;border-radius:8px;margin-bottom:10px}
+.muted{color:var(--muted)}
+
+/* About & contact */
+.about ul{margin:12px 0;padding-left:20px}
+.contact-form input,.contact-form textarea{width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid #ddd}
+.contact-form button{width:170px}
+
+/* Footer */
+.footer{background:#fff;padding:18px 0;text-align:center;color:var(--muted)}
+
+.product-card button{
+  margin:10px 0 15px;
+  padding:8px 15px;
+  background-color:#b08b56;
+  border:none;color:white;border-radius:8px;cursor:pointer;
+}
+
+/* MODALS + анимация */
+/* MODALS + анимация */
+.modal{
+  position:fixed; inset:0;
+  display:flex;                     /* всегда flex */
+  align-items:center; justify-content:center;
+  background:rgba(0,0,0,.4);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  z-index:1000;
+
+  opacity:0; pointer-events:none;   /* скрыто по умолчанию */
+  transition:opacity .25s ease;
+}
+.modal.open{ opacity:1; pointer-events:auto; }
+
+.modal-content{
+  background:#fff; width:90%; max-width:420px;
+  border-radius:14px; padding:18px 20px; position:relative;
+  box-shadow:0 18px 55px rgba(0,0,0,.28);
+
+  transform: scale(.96) translateY(6px);
+  opacity:0;
+  transition: transform .28s cubic-bezier(.2,.75,.25,1), opacity .28s ease;
+}
+.modal.open .modal-content{
+  transform: scale(1) translateY(0);
+  opacity:1;
+}
+.close-button{
+  position:absolute; right:12px; top:10px;
+  font-size:22px; line-height:1;
+  background:transparent; border:0; cursor:pointer; color:#666;
+}
+.close-button:hover{ color:#000; }
+.muted{ color:#6b6b6b; }
+
+
+/* коробка с анимацией scale + fade */
+.modal-content, .modal-box{
+  background:#fff;
+  width:90%; max-width:420px;
+  border-radius:14px;
+  padding:18px 20px;
+  position:relative;
+  box-shadow:0 18px 55px rgba(0,0,0,.28);
+
+  transform: scale(.96) translateY(6px);
+  opacity:0;
+  transition: transform .28s cubic-bezier(.2,.75,.25,1), opacity .28s ease;
+}
+.modal.open .modal-content,
+.modal.open .modal-box{
+  transform: scale(1) translateY(0);
+  opacity:1;
+}
+
+/* кнопка закрытия */
+.close-button, .modal-close{
+  position:absolute; right:12px; top:10px;
+  font-size:22px; line-height:1;
+  background:transparent; border:0; cursor:pointer;
+  color:#666; transition:transform .15s ease;
+}
+.close-button:hover, .modal-close:hover{ color:#000; transform:scale(1.08); }
+
+/* поля и кнопка формы */
+.modal-form input{
+  width:100%; padding:10px; margin:8px 0;
+  border:1px solid #ddd; border-radius:8px;
+}
+.modal-form button{
+  width:100%; padding:10px; border:0; border-radius:8px;
+  background:#3e2f2f; color:#fff; font-weight:700; cursor:pointer;
+  transition: transform .08s ease, opacity .2s ease;
+}
+.modal-form button:active{ transform:scale(.98); }
+
+/* уважение к reduced-motion */
+@media (prefers-reduced-motion: reduce){
+  .modal, .modal-content, .modal-box{ transition:none !important; }
+  .modal-content, .modal-box{ transform:none !important; opacity:1 !important; }
+}
+
+
+
+/* Responsive */
+@media (max-width:900px){
+  .product-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-title{font-size:38px}
+}
+@media (max-width:600px){
+  .main-nav{display:none}
+  .burger{display:block}
+  .product-grid{grid-template-columns:1fr}
+  .hero{height:58vh}
+  .hero-title{font-size:28px}
+  .actions .btn{padding:6px 10px}
+}

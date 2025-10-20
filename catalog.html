@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SilkRoad — Каталог</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .cat-header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 18px;background:#b08b56;color:#fff;position:sticky;top:0;z-index:10}
+    .logo{font-family:'Playfair Display',serif;font-size:24px;letter-spacing:2px}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap}
+    .tabs button{background:#e3d3b3;border:0;padding:8px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+    .tabs button.active{background:#2e2524;color:#fff}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .chip{background:#f1e8db;border:0;padding:6px 10px;border-radius:999px;cursor:pointer}
+    .chip.active{background:#2e2524;color:#fff}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;padding:18px}
+    .card{background:#fff;border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.08);overflow:hidden}
+    .card img{width:100%;height:200px;object-fit:cover}
+    .card .pad{padding:10px 12px}
+    .row{display:flex;align-items:center;justify-content:space-between}
+    .price{font-weight:800}
+  </style>
+</head>
+<body>
+  <header class="cat-header">
+    <div class="logo">SILKROAD</div>
+    <div class="tabs">
+      <button class="tab active" data-cat="men" data-i18n="men">Мужчины</button>
+      <button class="tab" data-cat="women" data-i18n="women">Женщины</button>
+      <button class="tab" data-cat="kids" data-i18n="kids">Дети</button>
+    </div>
+    <div>
+      <select id="langSwitcher" style="padding:6px;border-radius:8px;">
+        <option value="ru">RU</option><option value="ro">RO</option><option value="en">EN</option>
+      </select>
+      <button id="logout" class="btn" style="margin-left:8px">Выход</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="chips" id="subChips"></div>
+    <div id="grid" class="grid"></div>
+  </main>
+
+  <script>
+  // ===== ГЕЙТ: только после входа
+  if(!localStorage.getItem('sr_auth')){
+    window.location.href = 'index.html';
+  }
+
+  const API='http://localhost:5000';
+  const grid=document.getElementById('grid');
+  const tabs=document.querySelectorAll('.tab');
+  const chips=document.getElementById('subChips');
+  const logout=document.getElementById('logout');
+  const langSwitcher=document.getElementById('langSwitcher');
+
+  const i18n = {
+    ru:{ men:"Мужчины", women:"Женщины", kids:"Дети", add:"В корзину"},
+    ro:{ men:"Bărbați", women:"Femei", kids:"Copii", add:"Adaugă"},
+    en:{ men:"Men", women:"Women", kids:"Kids", add:"Add to Cart"}
+  };
+  function applyI18n(){
+    const lang=localStorage.getItem('sr_lang')||'ru';
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key=el.getAttribute('data-i18n');
+      el.textContent = (i18n[lang]&&i18n[lang][key])||el.textContent;
+    });
+  }
+  langSwitcher.value=localStorage.getItem('sr_lang')||'ru';
+  langSwitcher.addEventListener('change',()=>{
+    localStorage.setItem('sr_lang', langSwitcher.value);
+    applyI18n();
+  });
+  applyI18n();
+
+  const SUBS = {
+    men:["Брюки","Рубашки","Обувь","Аксессуары"],
+    women:["Платья","Юбки","Обувь","Аксессуары"],
+    kids:["Одежда","Обувь","Игрушки","Аксессуары"]
+  };
+
+  let currentCat='men', currentSub=null, data=[];
+
+  function renderChips(){
+    chips.innerHTML = (SUBS[currentCat]||[]).map(s=>`
+      <button class="chip ${s===currentSub?'active':''}" data-sub="${s}">${s}</button>
+    `).join('');
+  }
+
+  function renderGrid(){
+    const lang=localStorage.getItem('sr_lang')||'ru';
+    const t=i18n[lang]||i18n['ru'];
+    const list = currentSub ? data.filter(p=>p.subcategory===currentSub) : data;
+    grid.innerHTML = list.map(p=>`
+      <div class="card">
+        <img src="${p.image}" alt="${p.name}">
+        <div class="pad">
+          <div class="row"><strong>${p.name}</strong><span class="price">${p.price}</span></div>
+          <div class="row"><small>${p.subcategory||''}</small><button class="btn" data-add='${JSON.stringify({name:p.name,price:p.price})}'>${t.add}</button></div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  async function loadCat(cat){
+    currentCat=cat; currentSub=null;
+    chips.innerHTML='...';
+    grid.innerHTML='Загрузка...';
+    const res=await fetch(`${API}/api/products/${cat}`);
+    data=await res.json();
+    renderChips(); renderGrid();
+  }
+
+  chips.addEventListener('click',(e)=>{
+    if(e.target.classList.contains('chip')){
+      currentSub = e.target.getAttribute('data-sub');
+      renderChips(); renderGrid();
+    }
+  });
+
+  grid.addEventListener('click', (e)=>{
+    if(e.target.matches('[data-add]')){
+      const prod = JSON.parse(e.target.getAttribute('data-add'));
+      const cart = JSON.parse(localStorage.getItem('sr_cart')||'[]');
+      cart.push(prod);
+      localStorage.setItem('sr_cart', JSON.stringify(cart));
+      e.target.textContent='✓';
+      setTimeout(()=>{ e.target.textContent=(i18n[localStorage.getItem('sr_lang')||'ru'].add); }, 600);
+    }
+  });
+
+  tabs.forEach(b=>{
+    b.addEventListener('click', ()=>{
+      tabs.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      loadCat(b.dataset.cat);
+    });
+  });
+
+  logout.addEventListener('click', ()=>{
+    localStorage.removeItem('sr_auth');
+    window.location.href='index.html';
+  });
+
+  loadCat('men');
+  </script>
+</body>
+</html>
