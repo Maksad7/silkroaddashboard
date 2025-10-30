@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Milestone 1 — SilkRoad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#111827;  /* close to index */
+      --muted:#6b7280;
+      --bg:#ffffff;   /* index uses white */
+      --ring:#e5e7eb;
+      --card:#ffffff;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+
+    /* ====== NAV EXACT LABELS LIKE INDEX ====== */
+    .site-nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--ring)}
+    .site-nav .nav-inner{max-width:1100px;margin:0 auto;padding:12px 16px}
+    .site-nav .nav-list{margin:0;padding:0;display:flex;gap:22px;list-style:none}
+    .site-nav .nav-list a{text-decoration:none;color:var(--ink);font-weight:700;letter-spacing:.02em}
+    .site-nav .nav-list a:hover{text-decoration:underline}
+
+    /* ====== HERO + SECTIONS ====== */
+    header.hero{max-width:1100px;margin:18px auto 0;background:linear-gradient(135deg,#f7f9ff,#ffffff);border:1px solid var(--ring);border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.06);padding:28px}
+    header.hero h1{margin:0 0 6px;font-family:"Playfair Display",serif;font-size:28px}
+    header.hero h2{margin:0;font-size:16px;font-weight:600;color:var(--muted)}
+
+    .section{max-width:1100px;margin:20px auto;background:var(--card);border:1px solid var(--ring);border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.03);padding:24px}
+    .section h2{margin:0 0 10px;font-size:22px}
+    .section p{line-height:1.6}
+    .section ul{margin:8px 0 0 18px}
+
+    .anchor{scroll-margin-top:80px}
+
+    .footer{max-width:1100px;margin:20px auto 40px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;padding:0 4px}
+    .top{padding:8px 12px;border:1px solid var(--ring);border-radius:10px;text-decoration:none;color:var(--ink)}
+
+    @media (max-width:760px){
+      .site-nav .nav-list{gap:14px;flex-wrap:wrap}
+      header.hero h1{font-size:24px}
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== NAV EXACTLY LIKE INDEX (labels & simple underline hover) ===== -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <ul class="nav-list">
+        <li><a href="#home">HOME</a></li>
+        <li><a href="#building">BUILDING PROCESS</a></li>
+        <li><a href="#team">TEAM</a></li>
+        <li><a href="#about">ABOUT</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header id="home" class="hero">
+    <h1 class="anchor" id="desc">Description</h1>
+    <h2>SilkRoad — Timeless Quality, For Your Comfort Today.</h2>
+  </header>
+
+  <!-- ===== SECTION: PROBLEM ===== -->
+  <section class="section">
+    <h2 id="building" class="anchor">The Problem</h2>
+    <p>People in Romania who want authentic Turkmen textiles struggle with availability, high import costs, and quality uncertainty. Meanwhile, Turkmen producers lack access to EU markets, branding, and logistics compliance.</p>
+  </section>
+
+  <!-- ===== SECTION: SOLUTION ===== -->
+  <section class="section">
+    <h2 id="solution" class="anchor">Our Solution</h2>
+    <p>A dedicated online platform that curates and delivers Turkmen textiles locally in Romania with transparent pricing, verified quality, and fast delivery.</p>
+    <ul>
+      <li>Curated catalog: Cotton bedding and towels, silk scarves, keteni apparel, traditional carpets.</li>
+      <li>Product pages with materials, sizes, care instructions, and photos</li>
+      <li>Secure checkout in RON with invoices and tracking</li>
+      <li>Courier & locker shipping, easy returns</li>
+      <li>Educational storytelling about Turkmen craft</li>
+    </ul>
+  </section>
+
+  <!-- ===== SECTION: PHASE 2 ===== -->
+  <section class="section">
+    <h2 id="phase2" class="anchor">Phase 2 – Marketplace Upgrade</h2>
+    <ul>
+      <li>Vendor onboarding (Turkmen producers)</li>
+      <li>Ratings, reviews, wishlists, and discount systems</li>
+      <li>Bundles & promotional campaigns</li>
+    </ul>
+  </section>
+
+  <!-- ===== SECTION: SEGMENTS ===== -->
+  <section class="section">
+    <h2 id="team" class="anchor">Customer Segments</h2>
+    <ul>
+      <li><strong>Primary:</strong> Turkmen people in Romania & international students (18–35)</li>
+      <li><strong>Secondary:</strong> Romanian consumers (18–55) valuing natural fibers</li>
+      <li><strong>Early B2B:</strong> Small boutiques seeking unique textiles</li>
+    </ul>
+  </section>
+
+  <!-- ===== SECTION: COMPETITION ===== -->
+  <section class="section">
+    <h2 id="competition" class="anchor">Competition</h2>
+    <ul>
+      <li>General marketplaces: eMAG, Etsy</li>
+      <li>Local Romanian textile brands</li>
+      <li>Temu, Trendyol, Shein, Zalando, AliExpress</li>
+    </ul>
+  </section>
+
+  <!-- ===== SECTION: ADVANTAGES ===== -->
+   <section id="ddd" class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border-t-4 border-primary-blue"></section>
+    <h2 id="advantages" class="anchor">Our Advantages</h2>
+    <ul>
+      <li>Niche focus & authenticity</li>
+      <li>Verified quality and materials</li>
+      <li>Strong brand story and cultural trust</li>
+    </ul>
+  </section>
+
+  <!-- ===== SECTION: METRICS ===== -->
+  <section class="section">
+    <h2 id="metrics" class="anchor">Key Metrics</h2>
+    <ul>
+      <li>Waitlist signups & email subscribers</li>
+      <li>Conversion rate & Average Order Value</li>
+      <li>Repeat purchase rate</li>
+      <li>Order fulfillment time</li>
+      <li>Number of verified suppliers</li>
+      <li>Customer satisfaction scores</li>
+    </ul>
+  </section>
+
+  <!-- ===== SECTION: COSTS ===== -->
+  <section class="section">
+    <h2 id="costs" class="anchor">Cost Structure</h2>
+    <p><strong>Fixed Costs:</strong> logistic fees, advertising, marketing.</p>
+    <p><strong>Variable Costs:</strong> cost of goods, shipping & logistics fees.</p>
+  </section>
+<a href="#ddd" class="text-gray-600 hover:text-primary-blue transition duration-300">ddd</a>
+  <!-- ===== SECTION: REVENUE ===== -->
+  <section class="section">
+    <h2 id="revenue" class="anchor">Revenue Streams</h2>
+    <ul>
+      <li>Direct product sales</li>
+      <li>Marketplace commissions (Phase 2)</li>
+      <li>Private-label textile collections</li>
+    </ul>
+  </section>
+
+  <!-- ===== FOOTER / ABOUT ANCHOR ===== -->
+  <div id="about" class="footer">
+    <span>© SilkRoad • Milestone 1</span>
+    <a class="top" href="#home">Back to top ↑</a>
+  </div>
+</body>
+</html>
